@@ -40,7 +40,7 @@ const App =()=> {
     })
     return (
 <main>
-    <div className="Patterns">
+    <div className="pattern">
        <div className="wrapper">
     <header>
         <img src="./public/hero-img.png" alt="hero banner" />
