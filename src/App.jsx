@@ -6,6 +6,7 @@ import {useDebounce} from "react-use"
 import { updateSearchCount } from "./Appwrite";
 
 
+const BASE_URL = import.meta.env.BASE_URL;
 const API_BASE_URL ='https://api.themoviedb.org/3';
 
 const API_KEY =import.meta.env.VITE_TMDB_API_KEY;
@@ -75,7 +76,7 @@ const App =()=> {
     <div className="pattern">
        <div className="wrapper">
     <header>
-        <img src="/hero-img.png" alt="hero banner" />
+        <img src={BASE_URL +"/hero-img.png"} alt="hero banner" />
         <h1>Find <span className="text-gradient">Movies</span> You’ll Love Without the Hassle</h1>
         <Search searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
         </header>
