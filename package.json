@@ -1,4 +1,3 @@
-
 {
   "name": "react-movie-app",
   "homepage": "https://coding-with-lounas.github.io/react-movie-app/",
@@ -18,6 +17,7 @@
     "appwrite": "^18.2.0",
     "react": "^19.1.1",
     "react-dom": "^19.1.0",
+    "react-router-dom": "^7.8.0",
     "react-use": "^17.6.0",
     "tailwindcss": "^4.1.11"
   },

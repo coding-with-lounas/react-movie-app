@@ -4,6 +4,7 @@ import { Spinner } from "./components/Spinner";
 import MovieCard from "./components/MovieCard";
 import {useDebounce} from "react-use"
 import { getTrendingMovies, updateSearchCount } from "./Appwrite";
+import MovieDetails from "./components/MovieDetails";
 
 
 const BASE_URL = import.meta.env.BASE_URL;
@@ -27,6 +28,7 @@ const App =()=> {
    const [trendingMovies,setTrendingMovies]=useState([])
    const[isLoading,setIsLoading]=useState(false)
    const[debouncedSearch,setDebouncedSearch]=useState('')
+   const [selectedMovieId, setSelectedMovieId] = useState(null)
    
    // Debounce the search term to prevent making too many API requests
   // by waiting for the user to stop typing for 500ms
@@ -86,6 +88,19 @@ const App =()=> {
     useEffect(()=>{
        loadingTrend()
     },[])
+    const handleMovieClick = (movieId) => {
+  setSelectedMovieId(movieId);
+};
+
+const handleCloseDetails = () => {
+  setSelectedMovieId(null);
+};
+
+const handleTrendingMovieClick = (movie) => {
+  const movieId = movie.tmdb_id || movie.id;
+  setSelectedMovieId(movieId);
+};
+
     return (
 <main>
     <div className="pattern">
@@ -100,7 +115,7 @@ const App =()=> {
              <h2>Trending Movies</h2>
              <ul>
                 {trendingMovies.map((movie,index)=>
-                <li key={movie.$id}>
+                <li key={movie.$id} onClick={() => handleTrendingMovieClick(movie)} style={{ cursor: 'pointer' }}>
                   <p>{index +1}</p>
                   <img src={movie.poster_url} alt={movie.title} />
                 </li>
@@ -117,7 +132,7 @@ const App =()=> {
                 <p className="text-red-500">{errorMessage}</p>
             ):(
                 <ul>
-                    {movieList.map((movie)=><MovieCard key={movie.id} movie={movie} />)}
+                    {movieList.map((movie)=><MovieCard key={movie.id} movie={movie} onMovieClick={handleMovieClick}/>)}
                 </ul>
             )
 
@@ -126,7 +141,16 @@ const App =()=> {
         </section>
        </div>
     </div>
+   
+    {/* Movie Details Modal */}
+{selectedMovieId && (
+  <MovieDetails 
+    movieId={selectedMovieId} 
+    onClose={handleCloseDetails}
+  />
+)}
 </main>
+
     )
 }
 export default App;
