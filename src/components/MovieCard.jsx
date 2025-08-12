@@ -7,8 +7,9 @@ const MovieCard = ({movie : {id, title,vote_average,poster_path,release_date,ori
       onMovieClick(id);
     }
   };
+  
   return (
-    <div className='movie-card' onClick={handleClick} style={{ cursor: 'pointer' }} >
+     <div className='movie-card' onClick={handleClick} style={{ cursor: 'pointer' }}>
        <img 
   src={poster_path ? `https://image.tmdb.org/t/p/w500/${poster_path}` : `${BASE_URL}No-Poster.png`} 
   alt={title} 

@@ -88,7 +88,8 @@ const App =()=> {
     useEffect(()=>{
        loadingTrend()
     },[])
-    const handleMovieClick = (movieId) => {
+   
+const handleMovieClick = (movieId) => {
   setSelectedMovieId(movieId);
 };
 

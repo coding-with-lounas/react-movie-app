@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import './MovieDetails.css'; 
 import { Spinner } from './Spinner';
 
@@ -20,13 +20,9 @@ const MovieDetails = ({ movieId, onClose }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState('');
 
-  useEffect(() => {
-    if (movieId) {
-      fetchMovieDetails();
-    }
-  }, [movieId]);
-
-  const fetchMovieDetails = async () => {
+  const fetchMovieDetails = useCallback(async () => {
+    if (!movieId) return;
+    
     setIsLoading(true);
     setErrorMessage('');
     
@@ -70,7 +66,13 @@ const MovieDetails = ({ movieId, onClose }) => {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [movieId]); // Fixed: Added movieId dependency
+
+  useEffect(() => {
+    if (movieId) {
+      fetchMovieDetails();
+    }
+  }, [movieId, fetchMovieDetails]); // Fixed: Now safe to include fetchMovieDetails
 
   const formatRuntime = (minutes) => {
     if (!minutes) return 'N/A';
